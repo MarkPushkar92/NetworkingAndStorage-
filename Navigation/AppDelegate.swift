@@ -10,9 +10,15 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+ //  var appConfiguration: AppConfiguration
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let appConfiguration = AppConfiguration.allCases.randomElement()!
+        let network = NetworkService()
+        network.startDataTask(url: appConfiguration.rawValue)
+        
         return true
     }
 

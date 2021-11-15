@@ -31,6 +31,8 @@
 		63AB57BD269183C50028E685 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB57BC269183C50028E685 /* CustomButton.swift */; };
 		63B9024226B54AC5003E317F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B9024126B54AC5003E317F /* ProfileViewModel.swift */; };
 		63BF955B2685F987007F8F5B /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 63BF955A2685F987007F8F5B /* iOSIntPackage */; };
+		63C5E0F12732781300FBD35B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C5E0F02732781300FBD35B /* NetworkService.swift */; };
+		63C5E0F327327DFD00FBD35B /* networkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C5E0F227327DFD00FBD35B /* networkModels.swift */; };
 		63D5C92125D413E5007DCF81 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D5C92025D413E5007DCF81 /* PostTableViewCell.swift */; };
 		63EBC92625D2AD3700155F8B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EBC92525D2AD3700155F8B /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +63,8 @@
 		638BA5F026401D60006A9E72 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		63AB57BC269183C50028E685 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		63B9024126B54AC5003E317F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		63C5E0F02732781300FBD35B /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		63C5E0F227327DFD00FBD35B /* networkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = networkModels.swift; sourceTree = "<group>"; };
 		63D5C92025D413E5007DCF81 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		63EBC92525D2AD3700155F8B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,8 +141,8 @@
 				63B9024026B54A74003E317F /* ProfileModule */,
 				634D8F2925C548A500C696AA /* LogInViewController.swift */,
 				63D5C92025D413E5007DCF81 /* PostTableViewCell.swift */,
-				060782C9250CEE7200A87020 /* Post.swift */,
 				63C42DF526417400005A1A07 /* PhotoGallery */,
+				63C5E0EF273277ED00FBD35B /* NetworkService */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -148,6 +152,7 @@
 			children = (
 				636C83512695A7EB00DEC1AC /* Model.swift */,
 				63AB57BC269183C50028E685 /* CustomButton.swift */,
+				060782C9250CEE7200A87020 /* Post.swift */,
 				636C83532695A80300DEC1AC /* CustomTextField.swift */,
 			);
 			path = "Views and Model";
@@ -172,6 +177,15 @@
 				63006532264266A300646BDD /* photogal.swift */,
 			);
 			path = PhotoGallery;
+			sourceTree = "<group>";
+		};
+		63C5E0EF273277ED00FBD35B /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				63C5E0F02732781300FBD35B /* NetworkService.swift */,
+				63C5E0F227327DFD00FBD35B /* networkModels.swift */,
+			);
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,6 +268,7 @@
 				63740B3726B17F5E0099E13A /* Factory.swift in Sources */,
 				630065312642661400646BDD /* PhotosCollectionViewCell.swift in Sources */,
 				6300652F2642659F00646BDD /* PhotosViewController.swift in Sources */,
+				63C5E0F12732781300FBD35B /* NetworkService.swift in Sources */,
 				63AB57BD269183C50028E685 /* CustomButton.swift in Sources */,
 				6377D25726C11D50005959BA /* BrutForce.swift in Sources */,
 				63EBC92625D2AD3700155F8B /* TabBarViewController.swift in Sources */,
@@ -262,6 +277,7 @@
 				636C83542695A80300DEC1AC /* CustomTextField.swift in Sources */,
 				634D8F2A25C548A500C696AA /* LogInViewController.swift in Sources */,
 				060782C6250CEB0A00A87020 /* InfoViewController.swift in Sources */,
+				63C5E0F327327DFD00FBD35B /* networkModels.swift in Sources */,
 				636C83522695A7EB00DEC1AC /* Model.swift in Sources */,
 				060782CA250CEE7200A87020 /* Post.swift in Sources */,
 				632E000E26AFE74600C466B4 /* Coordinator .swift in Sources */,
