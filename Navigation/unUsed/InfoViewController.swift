@@ -10,6 +10,8 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
+    let networkService = NetWorkService()
+    
     private let button: UIButton = {
         let button = UIButton()
         button.setTitle("Show alert", for: .normal)
@@ -57,7 +59,8 @@ class InfoViewController: UIViewController {
     }
     
     @objc func showTitle() {
-       print("tits")
+        print("tits")
+        networkService.startDataTask(url: "https://jsonplaceholder.typicode.com/todos/2")
     }
     
     @objc func showAlert(_ sender: Any) {
