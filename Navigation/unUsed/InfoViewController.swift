@@ -10,7 +10,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
-    let button: UIButton = {
+    private let button: UIButton = {
         let button = UIButton()
         button.setTitle("Show alert", for: .normal)
         button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
@@ -19,19 +19,45 @@ class InfoViewController: UIViewController {
         return button
     }()
     
+   private var titleLabel: UILabel = {
+       let label = UILabel()
+       label.text = "No title Yet"
+       label.textColor = .black
+       label.backgroundColor = .lightGray
+       label.translatesAutoresizingMaskIntoConstraints = false
+       return label
+    }()
     
+    private let showTitleButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Show title", for: .normal)
+        button.addTarget(self, action: #selector(showTitle), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.sizeToFit()
+        button.backgroundColor = .lightGray
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .darkGray
         view.addSubview(button)
+        view.addSubview(titleLabel)
+        view.addSubview(showTitleButton)
         let constraints = [
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150),
+            showTitleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            showTitleButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -250)
         ]
         
         NSLayoutConstraint.activate(constraints)
-        
+    }
+    
+    @objc func showTitle() {
+       print("tits")
     }
     
     @objc func showAlert(_ sender: Any) {
