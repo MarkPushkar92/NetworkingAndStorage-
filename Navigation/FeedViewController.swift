@@ -14,6 +14,17 @@ class FeedViewController: UIViewController {
 //MARK: Properties
     var model: Model
     
+    private var infoVCButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Go to InfoVC", for: .normal)
+        button.backgroundColor = .gray
+        button.roundCornersWithRadius(4, top: true, bottom: true, shadowEnabled: true)
+        button.sizeToFit()
+        button.addTarget(self, action: #selector(showInFoVC), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false 
+        return button
+    }()
+    
     private var responseLabel: UILabel! = {
         let responseLabel = UILabel()
         responseLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -56,7 +67,10 @@ class FeedViewController: UIViewController {
             responseLabel.textColor = .red
             print("red")
         }
-        
+    }
+    
+    @objc private func showInFoVC() {
+        navigationController?.pushViewController(InfoViewController(), animated: true)
     }
 
 //MARK: LayOut
@@ -65,6 +79,7 @@ class FeedViewController: UIViewController {
         view.addSubview(textInput)
         view.addSubview(button)
         view.addSubview(responseLabel)
+        view.addSubviews(infoVCButton)
         
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -75,6 +90,8 @@ class FeedViewController: UIViewController {
             textInput.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
             responseLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             responseLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150),
+            infoVCButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            infoVCButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -250)
         ])
     }
     
