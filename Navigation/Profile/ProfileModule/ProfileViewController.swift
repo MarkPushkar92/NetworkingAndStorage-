@@ -41,18 +41,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         title = profileViewModel.moduleTitle
-        var time = 0
-        let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            time += 1
-            self.header.timerLabel.text = "Time spent on page \(time)"
-            if time == 10 {
-                let alertWindow = UIAlertController(title: "Attention", message: "Stop Doing nothing, go for a walk", preferredStyle: .alert)
-                alertWindow.addAction(UIAlertAction(title: "OK", style: .default))
-                self.present(alertWindow, animated: true)
-            }
-        }
-        RunLoop.current.add(timer, forMode: .common)
-        timer.fire()
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {

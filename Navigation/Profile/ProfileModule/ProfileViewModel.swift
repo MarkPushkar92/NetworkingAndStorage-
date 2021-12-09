@@ -10,17 +10,12 @@ import UIKit
 
 protocol ProfileOutput {
     var moduleTitle: String { get }
-  //  var header: UITableViewHeaderFooterView { get }
     var onTapShowNextModule: () -> Void { get }
 }
 
 final class ProfilelViewModel: ProfileOutput {
     
     var coordinator: LogInCoordinator?
-    
-//    var header: UITableViewHeaderFooterView {
-//        return ProfileHeaderView()
-//    }
     
     var moduleTitle: String {
         return "Profile"
