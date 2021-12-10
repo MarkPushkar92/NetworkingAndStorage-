@@ -92,16 +92,13 @@ class LogInViewController: UIViewController {
                 print("missing email or password")
                 return
               }
-        let logInStatus = delegate?.logIn(email: email, password: password)
-        DispatchQueue.main.async {
-            if logInStatus == true {
-                self.coordinator?.goToProfile()
-            } else {
-                self.delegate?.createAccount(email: email, password: password)
-            }
-        }
-        
-        
+        delegate?.logIn(email: email, password: password, completion: { logInStatus in
+                if logInStatus == true {
+                    self.coordinator?.goToProfile()
+                } else {
+                    self.createAccount(email: email, password: password)
+                }
+        })
     }
         
                                      
@@ -207,28 +204,22 @@ class LogInViewController: UIViewController {
 
 protocol LoginViewControllerDelegate: AnyObject {
     
-    func logIn(email: String, password: String) -> Bool
+    func logIn(email: String, password: String, completion: @escaping (Bool?) -> Void)
     
     func createAccount(email: String, password: String)
 
-   // func check(userLogin: String, userPassword: String) -> Bool
     
 }
 
 class LogInInspector: LoginViewControllerDelegate {
     
-    func logIn(email: String, password: String) -> Bool {
-        return Cheker.shared.logIn(email: email, password: password)
+    func logIn(email: String, password: String, completion: @escaping (Bool?) -> Void) {
+        return Cheker.shared.logIn(email: email, password: password, completion: completion)
     }
     
     func createAccount(email: String, password: String) {
         return Cheker.shared.createAccount(email: email, password: password)
     }
-    
-//    func check(userLogin: String, userPassword: String) -> Bool {
-//        return Cheker.shared.check(userLogin: userLogin, userPassword: userPassword)
-//    }
-    
 }
 
 //MARK: extension alpha
