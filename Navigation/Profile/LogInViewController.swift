@@ -107,7 +107,15 @@ class LogInViewController: UIViewController {
     func createAccount(email: String, password: String) {
         let alert = UIAlertController(title: "Create Account", message: "Create Account?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
-            self.delegate?.createAccount(email: email, password: password)
+            self.delegate?.createAccount(email: email, password: password, completion: { logInStatus in
+                if logInStatus == true {
+                    self.coordinator?.goToProfile()
+                } else {
+                    self.createAccount(email: email, password: password)
+                }
+        })
+                
+            
             }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
                             
@@ -206,7 +214,7 @@ protocol LoginViewControllerDelegate: AnyObject {
     
     func logIn(email: String, password: String, completion: @escaping (Bool?) -> Void)
     
-    func createAccount(email: String, password: String)
+    func createAccount(email: String, password: String, completion: @escaping (Bool?) -> Void)
 
     
 }
@@ -217,8 +225,8 @@ class LogInInspector: LoginViewControllerDelegate {
         return Cheker.shared.logIn(email: email, password: password, completion: completion)
     }
     
-    func createAccount(email: String, password: String) {
-        return Cheker.shared.createAccount(email: email, password: password)
+    func createAccount(email: String, password: String, completion: @escaping (Bool?) -> Void) {
+        return Cheker.shared.createAccount(email: email, password: password, completion: completion)
     }
 }
 

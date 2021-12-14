@@ -44,14 +44,14 @@ class Cheker {
 
     
     
-    func createAccount(email: String, password: String) {
+    func createAccount(email: String, password: String, completion: @escaping (Bool?) -> Void) {
        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { result, error in
            guard error == nil else {
                print("Failed to create account")
                return
             }
             print("Signed UP")
-            logIn(email: <#T##String#>, password: <#T##String#>, completion: <#T##(Bool?) -> Void#>)
+           self.logIn(email: email, password: password, completion: completion)
         }
         print("create account func calling")
    }
