@@ -132,6 +132,16 @@ class LogInViewController: UIViewController {
             stackLogIn.addArrangedSubview(email)
             stackLogIn.addArrangedSubview(passwordTextField)
         }
+        if let currentUser = delegate?.readRealmUser() {
+            delegate?.logIn(email: currentUser.email, password: currentUser.password, completion: { logInStatus in
+                    if logInStatus == true {
+                        self.coordinator?.goToProfile()
+                    } else {
+                        return
+                    }
+            })
+        }
+        
     }
         
     override func viewWillAppear(_ animated: Bool) {
@@ -209,6 +219,8 @@ protocol LoginViewControllerDelegate: AnyObject {
     func logIn(email: String, password: String, completion: @escaping (Bool?) -> Void)
     
     func createAccount(email: String, password: String, completion: @escaping (Bool?) -> Void)
+    
+    func readRealmUser() -> User?
 
     
 }
@@ -221,6 +233,10 @@ class LogInInspector: LoginViewControllerDelegate {
     
     func createAccount(email: String, password: String, completion: @escaping (Bool?) -> Void) {
         return Cheker.shared.createAccount(email: email, password: password, completion: completion)
+    }
+    
+    func readRealmUser() -> User? {
+        return Cheker.shared.readRealmUser()
     }
 }
 
