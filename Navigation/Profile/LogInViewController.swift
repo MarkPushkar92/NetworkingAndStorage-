@@ -100,9 +100,6 @@ class LogInViewController: UIViewController {
                 }
         })
     }
-        
-                                     
-                                     
     
     func createAccount(email: String, password: String) {
         let alert = UIAlertController(title: "Create Account", message: "Create Account?", preferredStyle: .alert)
@@ -113,12 +110,9 @@ class LogInViewController: UIViewController {
                 } else {
                     self.createAccount(email: email, password: password)
                 }
-        })
-                
-            
-            }))
+            })
+        }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-                            
         }))
         present(alert, animated: true, completion: nil)
     }
