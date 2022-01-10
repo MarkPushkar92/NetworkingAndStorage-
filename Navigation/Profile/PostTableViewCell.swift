@@ -8,9 +8,12 @@
 
 import UIKit
 
+typealias savePostHandling = (MyPost) -> Void
 
 class PostTableViewCell: UITableViewCell {
 
+   public var handleSavingPost: savePostHandling?
+    
     var post: MyPost? {
         didSet {
             authorLabel.text = post?.author
@@ -64,9 +67,21 @@ class PostTableViewCell: UITableViewCell {
         return iv
     }()
     
+    @objc private func doubleClickHandler() {
+        if let postData = post {
+            handleSavingPost!(postData)
+        }
+    }
+       
+    private func setupGestureRecognizer() {
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleClickHandler))
+        gestureRecognizer.numberOfTapsRequired = 2
+        contentView.addGestureRecognizer(gestureRecognizer)
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        setupGestureRecognizer()
         setupViews()
     }
     

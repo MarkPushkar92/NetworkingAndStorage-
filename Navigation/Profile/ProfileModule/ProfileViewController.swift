@@ -11,6 +11,8 @@ import Foundation
 
 class ProfileViewController: UIViewController {
     
+    let stack = CoreDataStack()
+    
     var header = ProfileHeaderView()
     
     private lazy var tableView: UITableView = {
@@ -53,6 +55,8 @@ class ProfileViewController: UIViewController {
         super.viewDidDisappear(animated)
 
     }
+    
+   
     
 }
 
@@ -100,7 +104,11 @@ extension ProfileViewController: UITableViewDataSource {
             return cell
         } else {
             let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! PostTableViewCell
-                cell.post = posts[indexPath.row]
+            cell.post = posts[indexPath.row]
+            cell.handleSavingPost = { [weak self] postData in
+                                    guard let this = self else { return }
+                                    this.stack.createNewSavedPost(postToSave: postData)
+                                    }
             return cell
         }
     }

@@ -17,6 +17,7 @@
 		6300652F2642659F00646BDD /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300652E2642659F00646BDD /* PhotosViewController.swift */; };
 		630065312642661400646BDD /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630065302642661400646BDD /* PhotosCollectionViewCell.swift */; };
 		63006533264266A300646BDD /* photogal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63006532264266A300646BDD /* photogal.swift */; };
+		631112F5278AEE8800D842AE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631112F4278AEE8800D842AE /* CoreDataStack.swift */; };
 		632E000C26AFE6C400C466B4 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632E000B26AFE6C400C466B4 /* MainCoordinator.swift */; };
 		632E000E26AFE74600C466B4 /* Coordinator .swift in Sources */ = {isa = PBXBuildFile; fileRef = 632E000D26AFE74600C466B4 /* Coordinator .swift */; };
 		633EB51C27857503001B9468 /* RealmUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633EB51B27857503001B9468 /* RealmUserModel.swift */; };
@@ -35,6 +36,7 @@
 		63B17EC7275397280087A1D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63B17EC6275397280087A1D0 /* GoogleService-Info.plist */; };
 		63B9024226B54AC5003E317F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B9024126B54AC5003E317F /* ProfileViewModel.swift */; };
 		63D5C92125D413E5007DCF81 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D5C92025D413E5007DCF81 /* PostTableViewCell.swift */; };
+		63EADA3E278C27AF00AF7322 /* Navigation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63EADA3C278C27AF00AF7322 /* Navigation.xcdatamodeld */; };
 		63EBC92625D2AD3700155F8B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EBC92525D2AD3700155F8B /* TabBarViewController.swift */; };
 		A85018BA4106D6F77AA56CB1 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C9D372A05916EDE4D4F373 /* Pods_Navigation.framework */; };
 /* End PBXBuildFile section */
@@ -54,6 +56,7 @@
 		6300652E2642659F00646BDD /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotosViewController.swift; path = Navigation/Profile/PhotosViewController.swift; sourceTree = SOURCE_ROOT; };
 		630065302642661400646BDD /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		63006532264266A300646BDD /* photogal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photogal.swift; sourceTree = "<group>"; };
+		631112F4278AEE8800D842AE /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		632E000B26AFE6C400C466B4 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		632E000D26AFE74600C466B4 /* Coordinator .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator .swift"; sourceTree = "<group>"; };
 		633EB51B27857503001B9468 /* RealmUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUserModel.swift; sourceTree = "<group>"; };
@@ -72,6 +75,7 @@
 		63B17EC6275397280087A1D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		63B9024126B54AC5003E317F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		63D5C92025D413E5007DCF81 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		63EADA3D278C27AF00AF7322 /* Navigation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Navigation.xcdatamodel; sourceTree = "<group>"; };
 		63EBC92525D2AD3700155F8B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D5C9D372A05916EDE4D4F373 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -113,13 +117,12 @@
 				060782B3250CE27700A87020 /* SceneDelegate.swift */,
 				634D77A225AC6676006A1E4F /* Profile */,
 				632E000F26AFE75300C466B4 /* Coordinators */,
-				060782B5250CE27700A87020 /* FeedViewController.swift */,
-				63EBC92525D2AD3700155F8B /* TabBarViewController.swift */,
 				636C83502695A7D000DEC1AC /* Views and Model */,
+				631112F3278AEE1C00D842AE /* CoreData */,
+				632E000A26AFE5D800C466B4 /* Controllers */,
 				060782BA250CE27A00A87020 /* Assets.xcassets */,
 				060782BF250CE27A00A87020 /* Info.plist */,
 				63B17EC6275397280087A1D0 /* GoogleService-Info.plist */,
-				632E000A26AFE5D800C466B4 /* unUsed */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -133,13 +136,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		632E000A26AFE5D800C466B4 /* unUsed */ = {
+		631112F3278AEE1C00D842AE /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				63EADA3C278C27AF00AF7322 /* Navigation.xcdatamodeld */,
+				631112F4278AEE8800D842AE /* CoreDataStack.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		632E000A26AFE5D800C466B4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				060782C5250CEB0A00A87020 /* InfoViewController.swift */,
+				63EBC92525D2AD3700155F8B /* TabBarViewController.swift */,
+				060782B5250CE27700A87020 /* FeedViewController.swift */,
 				060782C7250CEE5D00A87020 /* PostViewController.swift */,
 			);
-			path = unUsed;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		632E000F26AFE75300C466B4 /* Coordinators */ = {
@@ -330,6 +344,7 @@
 				63006533264266A300646BDD /* photogal.swift in Sources */,
 				63740B3726B17F5E0099E13A /* Factory.swift in Sources */,
 				630065312642661400646BDD /* PhotosCollectionViewCell.swift in Sources */,
+				63EADA3E278C27AF00AF7322 /* Navigation.xcdatamodeld in Sources */,
 				633EB51C27857503001B9468 /* RealmUserModel.swift in Sources */,
 				6300652F2642659F00646BDD /* PhotosViewController.swift in Sources */,
 				63AB57BD269183C50028E685 /* CustomButton.swift in Sources */,
@@ -340,6 +355,7 @@
 				634D8F2A25C548A500C696AA /* LogInViewController.swift in Sources */,
 				63837F7C2743CDB400BB675C /* JSON Models.swift in Sources */,
 				060782C6250CEB0A00A87020 /* InfoViewController.swift in Sources */,
+				631112F5278AEE8800D842AE /* CoreDataStack.swift in Sources */,
 				636C83522695A7EB00DEC1AC /* Model.swift in Sources */,
 				060782CA250CEE7200A87020 /* Post.swift in Sources */,
 				6357BFCC274FA16B00DFC7AD /* Checker.swift in Sources */,
@@ -533,6 +549,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		63EADA3C278C27AF00AF7322 /* Navigation.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				63EADA3D278C27AF00AF7322 /* Navigation.xcdatamodel */,
+			);
+			currentVersion = 63EADA3D278C27AF00AF7322 /* Navigation.xcdatamodel */;
+			name = Navigation.xcdatamodeld;
+			path = "../Views and Model/Navigation.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 060782A6250CE27700A87020 /* Project object */;
 }

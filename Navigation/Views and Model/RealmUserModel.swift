@@ -16,7 +16,6 @@ class RealmUserModel: Object {
         
 }
 
-
 final class User {
      let email: String
      let password: String

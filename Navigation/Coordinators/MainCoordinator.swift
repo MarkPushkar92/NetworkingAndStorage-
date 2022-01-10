@@ -19,8 +19,9 @@ class MainCoordinator: Coordinator {
         tabBarController = TabBarViewController()
         let feed = configureFeed()
         let logIn = configureProfile()
+        let faves = configureFaves()
         coordinators.append(logIn)
-        tabBarController.viewControllers = [feed, logIn.navigation]
+        tabBarController.viewControllers = [feed, logIn.navigation, faves]
         logIn.start()
     }
     
@@ -40,6 +41,15 @@ class MainCoordinator: Coordinator {
             image: UIImage.init(systemName: "person.fill"), tag: 1)
         let coordinator = LogInCoordinator(navigation: navigationSecond, factory: factory)
         return coordinator
+    }
+    
+    private func configureFaves() -> UINavigationController {
+        let favesController = PostViewController(stack: CoreDataStack())
+        let navigationFirst = UINavigationController(rootViewController: favesController)
+        navigationFirst.tabBarItem = UITabBarItem(
+            title: "Favorite",
+            image: UIImage.init(systemName: "heart.fill"), tag: 0)
+        return navigationFirst
     }
 
 }
