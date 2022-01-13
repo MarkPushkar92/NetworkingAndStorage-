@@ -94,28 +94,21 @@ private extension PostViewController {
 
 extension PostViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return postsDB.count
-        default:
-            break
-        }
-        return section
+     
+        return postsDB.count
     }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
   
         let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! PostTableViewCell
-        let cellData = postConverter(post: postsDB[indexPath.section])
+        let cellData = postConverter(post: postsDB[indexPath.row])
         cell.post = cellData
         return cell
         
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return postsDB.count
+        return 1
     }
 }
 
