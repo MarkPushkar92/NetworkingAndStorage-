@@ -19,8 +19,8 @@ struct MyPost {
     var views: Int
 }
 
-let cat = MyPost(author: "Dr.gonzo", description: "Oh, my damn cat", image: #imageLiteral(resourceName: "cat"), likes: 1, views: 3)
-let line = MyPost(author: "Dr.gonzo", description: "Don't cross the line", image: #imageLiteral(resourceName: "line"), likes: 10, views: 666)
+let cat = MyPost(author: "Julia", description: "Oh, my damn cat", image: #imageLiteral(resourceName: "cat"), likes: 1, views: 3)
+let line = MyPost(author: "Mark", description: "Don't cross the line", image: #imageLiteral(resourceName: "line"), likes: 10, views: 666)
 let waiting = MyPost(author: "Dr.gonzo", description: "waiting for my new Iphone", image: #imageLiteral(resourceName: "waiting"), likes: 4, views: 13)
 let inst = MyPost(author: "Dr.gonzo", description: "Oh, no!", image: #imageLiteral(resourceName: "dickpick"), likes: 1, views: 1)
 

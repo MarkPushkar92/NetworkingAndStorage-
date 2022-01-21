@@ -107,7 +107,7 @@ extension ProfileViewController: UITableViewDataSource {
             cell.post = posts[indexPath.row]
             cell.handleSavingPost = { [weak self] postData in
                                     guard let this = self else { return }
-                                    this.stack.createNewSavedPost(postToSave: postData)
+                                    this.stack.createNewPost(post: postData)
                                     }
             return cell
         }

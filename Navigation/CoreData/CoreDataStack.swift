@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import UIKit
+import SwiftUI
 
 class CoreDataStack {
 
@@ -27,7 +28,8 @@ class CoreDataStack {
         return persistentContainer.viewContext
     }
     
-    func newBackgroundContext() -> NSManagedObjectContext {
+    
+    var backgroundContext: NSManagedObjectContext {
         return persistentContainer.newBackgroundContext()
     }
     
@@ -40,14 +42,57 @@ class CoreDataStack {
         }
     }
     
+    func fetchSavedPostByAuthor(author : String) -> [SavedPost] {
+        let request: NSFetchRequest<SavedPost> = SavedPost.fetchRequest()
+        request.predicate = NSPredicate(format: "author == %@", author)
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            fatalError("Search error")
+        }
+    }
+    
     func remove(post: SavedPost) {
         viewContext.delete(post)
-        
+
         save(context: viewContext)
     }
     
-    func createNewSavedPost(postToSave: MyPost) {
-        let newSavedPost = SavedPost(context: viewContext)
+    //    private func removeImpl(post: SavedPost) {
+    //            backgroundContext.performAndWait {
+    //                backgroundContext.delete(post)
+    //                save(context: backgroundContext)
+    //            }
+    //        }
+    //
+    //    func remove(post : SavedPost) {
+    //            DispatchQueue.global(qos: .background).async { [weak self] in
+    //                guard let this = self else {return}
+    //                this.removeImpl(post: post)
+    //            }
+    //        }
+    
+//    func remove(post : SavedPost) {
+//        backgroundContext.perform { [weak self] in
+//            guard let this = self else {return}
+//            let deletingObj = this.backgroundContext.object(with: post.objectID) as! SavedPost
+//            this.backgroundContext.delete(deletingObj)
+//            this.save(context: this.backgroundContext)
+//        }
+//    }
+
+//    пытался решить задачу удаляя в backgroundContext, но тогда возкикает ошибка An NSManagedObjectContext cannot delete objects in other contexts , пофиксить ошибку не вышло, оставляю так , если поможете буду рад
+    
+    
+    func createNewPost(post : MyPost) {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let this = self else {return}
+            this.createNewSavedPost(postToSave: post, context: this.backgroundContext)
+        }
+    }
+    
+    func createNewSavedPost(postToSave: MyPost, context : NSManagedObjectContext) {
+        let newSavedPost = SavedPost(context: context)
         newSavedPost.author = postToSave.author
         newSavedPost.text = postToSave.description
         newSavedPost.likes = Int16(postToSave.likes)
@@ -57,13 +102,12 @@ class CoreDataStack {
             let data = image.jpegData(compressionQuality: 1.0)
             return data
         }()
-        save(context: viewContext)
+        save(context: context)
         print("post's saved")
     }
     
     private func save(context: NSManagedObjectContext) {
         guard context.hasChanges else { return }
-        
         do {
             try context.save()
         } catch {
