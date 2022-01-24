@@ -7,8 +7,27 @@
 //
 
 import UIKit
+import CoreData
 
 class PostViewController: UIViewController {
+    
+    //MARK: FRC
+    
+    private var isInitiallyLoaded: Bool = false
+    
+    private lazy var fetchResultsController: NSFetchedResultsController<SavedPost> = {
+
+        let request: NSFetchRequest<SavedPost> = SavedPost.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "author", ascending: false)]
+        let controller = NSFetchedResultsController(
+        fetchRequest: request,
+        managedObjectContext: stack.viewContext,
+        sectionNameKeyPath: nil,
+        cacheName: nil
+        )
+        controller.delegate = self
+        return controller
+     }()
     
     //MARK: Properties
     
@@ -44,6 +63,22 @@ class PostViewController: UIViewController {
         reloadPosts()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if !isInitiallyLoaded {
+            isInitiallyLoaded = true
+            stack.viewContext.perform {
+                do {
+                    try self.fetchResultsController.performFetch()
+                    self.tableView.reloadData()
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+            
     //MARK: Initializer
     
     init(stack: CoreDataStack) {
@@ -58,8 +93,28 @@ class PostViewController: UIViewController {
     //MARK: Methods
     
     private func reloadPosts() {
-        postsDB = stack.fetchPosts()
-        tableView.reloadData()
+        stack.viewContext.perform {
+            self.fetchResultsController.fetchRequest.predicate = nil
+            do {
+                try self.fetchResultsController.performFetch()
+                self.tableView.reloadData()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    private func filterByAuthor(author : String) {
+        stack.viewContext.perform {
+            let predicate = NSPredicate(format: "author == %@", author)
+            self.fetchResultsController.fetchRequest.predicate = predicate
+            do {
+                try self.fetchResultsController.performFetch()
+                self.tableView.reloadData()
+            } catch {
+                print(error)
+            }
+        }
     }
     
     private func postConverter(post: SavedPost) -> MyPost {
@@ -112,12 +167,6 @@ class PostViewController: UIViewController {
        
         self.present(alert, animated: true, completion: nil);
     }
-    
-    func filterByAuthor(author : String) {
-            self.postsDB = self.stack.fetchSavedPostByAuthor(author: author)
-            self.tableView.reloadData()
-    }
-
 }
 
 
@@ -142,14 +191,14 @@ private extension PostViewController {
 
 extension PostViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     
-        return postsDB.count
+        return fetchResultsController.fetchedObjects?.count ?? 0
     }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
   
         let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! PostTableViewCell
-        let cellData = postConverter(post: postsDB[indexPath.row])
+        let postItem = fetchResultsController.object(at: indexPath)
+        let cellData = postConverter(post: postItem)
         cell.post = cellData
         return cell
         
@@ -162,32 +211,47 @@ extension PostViewController: UITableViewDataSource {
 
 
 extension PostViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return 220
-        default:
-            return .zero
-        }
-    }
- 
+     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
             let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, success) in
                 guard let this = self else { return }
-                let postToDelete = this.postsDB.remove(at: indexPath.row)
-                this.tableView.performBatchUpdates {
-                    this.tableView.deleteRows(at: [indexPath], with: .automatic)
-                } completion: { (_) in
-                    this.stack.remove(post: postToDelete)
-                }
+                let postToDelete = this.fetchResultsController.object(at: indexPath)
+                this.stack.remove(post: postToDelete)
                 success(true)
             }
             return UISwipeActionsConfiguration(actions: [action])
     }
 }
 
-
-
-
-
+extension PostViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+            case .delete:
+                guard let indexPath = indexPath else { return }
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            case .insert:
+                guard let newIndexPath = newIndexPath else { return }
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            case .move:
+                guard
+                    let indexPath = indexPath,
+                    let newIndexPath = newIndexPath
+                else { return }
+                tableView.moveRow(at: indexPath, to: newIndexPath)
+            case .update:
+                guard let indexPath = indexPath else { return }
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            @unknown default:
+                fatalError()
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+}

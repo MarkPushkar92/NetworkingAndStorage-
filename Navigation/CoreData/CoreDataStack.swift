@@ -58,32 +58,6 @@ class CoreDataStack {
         save(context: viewContext)
     }
     
-    //    private func removeImpl(post: SavedPost) {
-    //            backgroundContext.performAndWait {
-    //                backgroundContext.delete(post)
-    //                save(context: backgroundContext)
-    //            }
-    //        }
-    //
-    //    func remove(post : SavedPost) {
-    //            DispatchQueue.global(qos: .background).async { [weak self] in
-    //                guard let this = self else {return}
-    //                this.removeImpl(post: post)
-    //            }
-    //        }
-    
-//    func remove(post : SavedPost) {
-//        backgroundContext.perform { [weak self] in
-//            guard let this = self else {return}
-//            let deletingObj = this.backgroundContext.object(with: post.objectID) as! SavedPost
-//            this.backgroundContext.delete(deletingObj)
-//            this.save(context: this.backgroundContext)
-//        }
-//    }
-
-//    пытался решить задачу удаляя в backgroundContext, но тогда возкикает ошибка An NSManagedObjectContext cannot delete objects in other contexts , пофиксить ошибку не вышло, оставляю так , если поможете буду рад
-    
-    
     func createNewPost(post : MyPost) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let this = self else {return}
