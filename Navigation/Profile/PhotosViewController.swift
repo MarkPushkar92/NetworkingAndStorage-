@@ -7,14 +7,12 @@
 //
 
 import UIKit
-import iOSIntPackage
+
 
 class PhotosViewController: UIViewController {
     
     weak var coordinator: LogInCoordinator?
     
-    let facade = ImagePublisherFacade()
-    let imageProcessor = ImageProcessor()
     var newImages = [UIImage]()
     var images = [UIImage]()
     
@@ -22,11 +20,11 @@ class PhotosViewController: UIViewController {
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
+    
+//MARK: LIFE CYCLE
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        facade.subscribe(self)
-        
         view.addSubview(collectionView)
         collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,11 +39,6 @@ class PhotosViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
-       // facade.addImagesWithTimer(time: 1, repeat: 10)
-        for i in 1...20 {
-                   images.append(UIImage(named: "\(i)")!)
-               }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,15 +48,6 @@ class PhotosViewController: UIViewController {
         view.addSubview(activityView)
         activityView.startAnimating()
         print(type(of: self), #function)
-        imageProcessor.processImagesOnThread(sourceImages: images, filter: .chrome, qos: .default) { filteredImages in
-            for image in filteredImages {
-                self.newImages.append(UIImage(cgImage: image!))
-            }
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                activityView.stopAnimating()
-            }
-        }
     }
     
 
@@ -75,14 +59,8 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        facade.removeSubscription(for: self)
-        facade.rechargeImageLibrary()
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-    }
+  
 }
 
 //MARK: extension DataSource
@@ -90,27 +68,17 @@ class PhotosViewController: UIViewController {
 extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return PhotoGallery.collectionModel.count
-        return newImages.count
+        return PhotoGallery.collectionModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as! PhotosCollectionViewCell
-       // cell.photo.image = PhotoGallery.collectionModel[indexPath.row]
-        cell.photo.image = newImages[indexPath.row]
+        cell.photo.image = PhotoGallery.collectionModel[indexPath.row]
         return cell
     }
 }
 
-//MARK: extension ImageLibraryFacade
 
-extension PhotosViewController: ImageLibrarySubscriber {
-    
-    func receive(images: [UIImage]) {
-        PhotoGallery.collectionModel.append(contentsOf: images)
-        collectionView.reloadData()
-    }
-}
 //MARK: extension DelegateFlowLayout
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {

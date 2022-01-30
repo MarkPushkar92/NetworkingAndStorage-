@@ -16,7 +16,7 @@ class LogInCoordinator: Coordinator {
     private lazy var profile = {
         factory.makeProfile()
     }()
-    
+    let checkerFactory = MyLogInFactory()
     
     init(navigation: UINavigationController,factory: ControllerFactory) {
         self.navigation = navigation
@@ -26,6 +26,7 @@ class LogInCoordinator: Coordinator {
     func start() {
         let logInVC = LogInViewController()
         logInVC.coordinator = self
+        logInVC.delegate = checkerFactory.makeInspector()
         navigation.pushViewController(logInVC, animated: true)
     }
     

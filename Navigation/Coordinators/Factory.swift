@@ -23,3 +23,18 @@ struct ControllerFactoryImpl: ControllerFactory {
         return (viewModel, settingsController)
     }
 }
+
+// MARK: INSPECTOR FACTORY
+
+protocol LoginFactory {
+    
+    func makeInspector() -> LogInInspector
+    
+}
+
+struct MyLogInFactory: LoginFactory {
+    
+    func makeInspector () -> LogInInspector {
+        return LogInInspector()
+    }
+}

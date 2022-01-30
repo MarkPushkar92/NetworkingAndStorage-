@@ -11,6 +11,8 @@ import Foundation
 
 class ProfileViewController: UIViewController {
     
+    let stack = CoreDataStack()
+    
     var header = ProfileHeaderView()
     
     private lazy var tableView: UITableView = {
@@ -41,18 +43,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         title = profileViewModel.moduleTitle
-        var time = 0
-        let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            time += 1
-            self.header.timerLabel.text = "Time spent on page \(time)"
-            if time == 10 {
-                let alertWindow = UIAlertController(title: "Attention", message: "Stop Doing nothing, go for a walk", preferredStyle: .alert)
-                alertWindow.addAction(UIAlertAction(title: "OK", style: .default))
-                self.present(alertWindow, animated: true)
-            }
-        }
-        RunLoop.current.add(timer, forMode: .common)
-        timer.fire()
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -64,6 +55,8 @@ class ProfileViewController: UIViewController {
         super.viewDidDisappear(animated)
 
     }
+    
+   
     
 }
 
@@ -111,7 +104,11 @@ extension ProfileViewController: UITableViewDataSource {
             return cell
         } else {
             let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! PostTableViewCell
-                cell.post = posts[indexPath.row]
+            cell.post = posts[indexPath.row]
+            cell.handleSavingPost = { [weak self] postData in
+                                    guard let this = self else { return }
+                                    this.stack.createNewPost(post: postData)
+                                    }
             return cell
         }
     }
@@ -150,16 +147,4 @@ extension ProfileViewController: UITableViewDelegate {
 }
 
 
-/*
- 
- 
- Задачи теоретически решаемые с помощью таймера:
- 1) в контексте текущего проекта - время затраченное на подборку пароля с помощью brutForce
- 2) в будущем - время отображения прогрузки фотографий из сети/ примение фильтров и т.д
- 
-  Вообще с таймерами все оказалось довольно понятно , однако примение модульной навигации усложняет их примение в более удобном формате, c возможностью отключения и перезапуска таймеров , во всяком случае у меня при попытках построить более осмысленную логику использования случались конфликты инициализации переменных ( при обращении к тем или иным переменным, например к хедеру , оказывалось , что он еще не проинициализирован и т.д).
- 
- Прошу помочь разобрвться с одной историей - после обновления mac и xcode перестали работать фильтры из iosIntPackage
- 
- 
- */
+

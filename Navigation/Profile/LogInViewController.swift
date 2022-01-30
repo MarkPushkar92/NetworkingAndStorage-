@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LogInViewController: UIViewController {
        
 //MARK: properties
+        
+    var delegate: LoginViewControllerDelegate?
     
     weak var coordinator: LogInCoordinator?
     
@@ -54,7 +57,7 @@ class LogInViewController: UIViewController {
         password.layer.borderWidth = 0.5
         password.layer.cornerRadius = 10
         password.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        password.isSecureTextEntry = true
+        password.isSecureTextEntry = false
         password.textColor = .black
         password.font = .systemFont(ofSize: 16)
         return password
@@ -72,16 +75,6 @@ class LogInViewController: UIViewController {
         return button
     }()
     
-    private lazy var generatePassword: CustomButton = {
-        let button = CustomButton(title: "Generate Password", titleColor: .white) {
-            self.genetate()
-        }
-        button.backgroundColor = .gray
-        button.layer.cornerRadius = 10
-        button.layer.masksToBounds = true
-        return button
-    }()
-    
     var scrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
@@ -89,38 +82,41 @@ class LogInViewController: UIViewController {
     }()
     
     var containerView = UIView()
-      
-   private func passGen() -> String {
-        let len = 4
-        let pswdChars = Array("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
-        let rndPswd = String((0..<len).map{ _ in pswdChars[Int(arc4random_uniform(UInt32(pswdChars.count)))]})
-        print(rndPswd)
-        return rndPswd
-    }
     
-    @objc func genetate() {
-        let activityView = UIActivityIndicatorView(style: .medium)
-        containerView.addSubview(activityView)
-        activityView.center = containerView.center
-        activityView.startAnimating()
-        let brut = BrutForcer()
-        let passToUnlock = self.passGen()
-        let queue = OperationQueue()
-        queue.addOperation {
-            let pass = brut.bruteForce(passwordToUnlock: passToUnlock)
-            OperationQueue.main.addOperation {
-                activityView.stopAnimating()
-                activityView.hidesWhenStopped = true
-                self.passwordTextField.isSecureTextEntry = false
-                self.passwordTextField.text = pass
-            }
-        }
-    }
+//MARK: LOGINFUNC
     
     @objc func buttonTapped() {
-        coordinator?.goToProfile()
         print("button tapped")
+        guard let email = email.text, !email.isEmpty ,
+              let password = passwordTextField.text, !password.isEmpty else {
+                print("missing email or password")
+                return
+              }
+        delegate?.logIn(email: email, password: password, completion: { logInStatus in
+                if logInStatus == true {
+                    self.coordinator?.goToProfile()
+                } else {
+                    self.createAccount(email: email, password: password)
+                }
+        })
     }
+    
+    func createAccount(email: String, password: String) {
+        let alert = UIAlertController(title: "Create Account", message: "Create Account?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
+            self.delegate?.createAccount(email: email, password: password, completion: { logInStatus in
+                if logInStatus == true {
+                    self.coordinator?.goToProfile()
+                } else {
+                    self.createAccount(email: email, password: password)
+                }
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
     
 //MARK: life Cycle
     
@@ -131,10 +127,19 @@ class LogInViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        [logoImage,stackLogIn,logInButton,generatePassword].forEach {
+        [logoImage,stackLogIn,logInButton].forEach {
             containerView.addSubview($0)
             stackLogIn.addArrangedSubview(email)
             stackLogIn.addArrangedSubview(passwordTextField)
+        }
+        if let currentUser = delegate?.readRealmUser() {
+            delegate?.logIn(email: currentUser.email, password: currentUser.password, completion: { logInStatus in
+                if logInStatus == true {
+                    self.coordinator?.goToProfile()
+                } else {
+                    return
+                }
+            })
         }
     }
         
@@ -201,11 +206,37 @@ class LogInViewController: UIViewController {
             logInButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             logInButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -24),
             
-            generatePassword.centerXAnchor.constraint(equalTo: logoImage.centerXAnchor),
-            generatePassword.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 60)
         ]
         NSLayoutConstraint.activate(constraints)
     }
+}
+
+// MARK: LogIn and Password Checking delegate
+
+protocol LoginViewControllerDelegate: AnyObject {
+    
+    func logIn(email: String, password: String, completion: @escaping (Bool?) -> Void)
+    
+    func createAccount(email: String, password: String, completion: @escaping (Bool?) -> Void)
+    
+    func readRealmUser() -> RealmCredentials?
+        
+}
+
+class LogInInspector: LoginViewControllerDelegate {
+    
+    func logIn(email: String, password: String, completion: @escaping (Bool?) -> Void) {
+        return Cheker.shared.logIn(email: email, password: password, completion: completion)
+    }
+    
+    func createAccount(email: String, password: String, completion: @escaping (Bool?) -> Void) {
+        return Cheker.shared.createAccount(email: email, password: password, completion: completion)
+    }
+    
+    func readRealmUser() -> RealmCredentials? {
+        return Cheker.shared.readRealmUser()
+    }
+
 }
 
 //MARK: extension alpha

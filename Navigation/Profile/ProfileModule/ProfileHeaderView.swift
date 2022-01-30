@@ -10,15 +10,6 @@ import UIKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
-    var timerLabel: UILabel = {
-        let timerLabel = UILabel()
-        timerLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        timerLabel.textColor = .cyan
-        timerLabel.text = "Time spent on page : 0"
-        timerLabel.translatesAutoresizingMaskIntoConstraints = false
-        return timerLabel
-    }()
-    
     private var profileNameLabel: UILabel! = {
         let profileNameLabel = UILabel()
         profileNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -80,7 +71,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         
         contentView.backgroundColor = .lightGray
     
-        contentView.addSubviews(profileNameLabel, imageView, button, statusLabel, timerLabel)
+        contentView.addSubviews(profileNameLabel, imageView, button, statusLabel)
     
         let constraints = [
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -102,8 +93,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             button.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             button.heightAnchor.constraint(equalToConstant: 50),
             
-            timerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            timerLabel.centerYAnchor.constraint(equalTo: button.centerYAnchor, constant: -40)
            ]
         
         NSLayoutConstraint.activate(constraints)
