@@ -12,7 +12,7 @@ import FirebaseAuth
 class LogInViewController: UIViewController {
        
 //MARK: properties
-    
+        
     var delegate: LoginViewControllerDelegate?
     
     weak var coordinator: LogInCoordinator?
@@ -134,14 +134,13 @@ class LogInViewController: UIViewController {
         }
         if let currentUser = delegate?.readRealmUser() {
             delegate?.logIn(email: currentUser.email, password: currentUser.password, completion: { logInStatus in
-                    if logInStatus == true {
-                        self.coordinator?.goToProfile()
-                    } else {
-                        return
-                    }
+                if logInStatus == true {
+                    self.coordinator?.goToProfile()
+                } else {
+                    return
+                }
             })
         }
-        
     }
         
     override func viewWillAppear(_ animated: Bool) {
@@ -220,9 +219,8 @@ protocol LoginViewControllerDelegate: AnyObject {
     
     func createAccount(email: String, password: String, completion: @escaping (Bool?) -> Void)
     
-    func readRealmUser() -> User?
-
-    
+    func readRealmUser() -> RealmCredentials?
+        
 }
 
 class LogInInspector: LoginViewControllerDelegate {
@@ -235,9 +233,10 @@ class LogInInspector: LoginViewControllerDelegate {
         return Cheker.shared.createAccount(email: email, password: password, completion: completion)
     }
     
-    func readRealmUser() -> User? {
+    func readRealmUser() -> RealmCredentials? {
         return Cheker.shared.readRealmUser()
     }
+
 }
 
 //MARK: extension alpha

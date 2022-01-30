@@ -22,6 +22,20 @@ class Cheker {
 //    private let login = "Mark.pushkar92@gmail.com"
     
     
+    private lazy var realmCrProvider : RealmCredentialsProvider = {
+        if let encryptionKey = KeyChainAccess.getCredentialsEncryptionKey() {
+            return RealmCredentialsProvider(encryptionKey: encryptionKey)
+        } else {
+            KeyChainAccess.initializeCredentialsEncryptionKey()
+            if let encryptionKey = KeyChainAccess.getCredentialsEncryptionKey() {
+                return RealmCredentialsProvider(encryptionKey: encryptionKey)
+            } else {
+                fatalError("not able to obtain encryption key for credentials")
+            }
+        }
+    }()
+    
+    
     func logIn(email: String, password: String, completion: @escaping (Bool?) -> Void) {
         
         var logInStatus = Bool()
@@ -54,33 +68,15 @@ class Cheker {
         print("create account func calling")
    }
     
-     func saveUserToRealmDB(email: String, password: String) {
-         let realm = try? Realm()
-         let realmUserObject = RealmUserModel()
-         realmUserObject.email = email
-         realmUserObject.password = password
-         do {
-         realm?.beginWrite()
-         realm?.add(realmUserObject)
-         try realm?.commitWrite()
-         } catch {
-             print(error.localizedDescription)
-         }
+     func saveUserToRealmDB(email: String, password: String) { 
+         let dbCredentials = RealmCredentials(id : UserID.userId, email: email, password: password)
+         self.realmCrProvider.addCredentials(credentials: dbCredentials)
+         
     }
     
-    func readRealmUser() -> User? {
-        let realm = try? Realm()
-        let result : [User] = realm?.objects(RealmUserModel.self).compactMap {
-            guard let email = $0.email, let password = $0.password else { return nil }
-            return User(email: email, password: password)
-        } ?? []
-        print("Available Users are  : \(result)")
-        
-        if result.count != 0 {
-            return result[0]
-            } else {
-            return nil
-        }
+    func readRealmUser() -> RealmCredentials? {
+        let credentials = realmCrProvider.getCredentials(userId: UserID.userId)
+        return credentials
     }
     
     func compareUsers(email: String, password: String) {
@@ -94,5 +90,4 @@ class Cheker {
     }
     
 }
-
 
