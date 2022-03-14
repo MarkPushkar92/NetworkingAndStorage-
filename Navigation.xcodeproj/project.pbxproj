@@ -32,6 +32,8 @@
 		63837F7C2743CDB400BB675C /* JSON Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63837F7B2743CDB300BB675C /* JSON Models.swift */; };
 		63837F7E2743CEBD00BB675C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63837F7D2743CEBD00BB675C /* NetworkService.swift */; };
 		638BA5F126401D60006A9E72 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BA5F026401D60006A9E72 /* PhotosTableViewCell.swift */; };
+		639B061D27DF247100B95999 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639B061C27DF247100B95999 /* MapViewController.swift */; };
+		639B061F27DF24C700B95999 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639B061E27DF24C700B95999 /* MapView.swift */; };
 		63AB57BD269183C50028E685 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB57BC269183C50028E685 /* CustomButton.swift */; };
 		63B17EC7275397280087A1D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63B17EC6275397280087A1D0 /* GoogleService-Info.plist */; };
 		63B9024226B54AC5003E317F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B9024126B54AC5003E317F /* ProfileViewModel.swift */; };
@@ -74,6 +76,8 @@
 		63837F7B2743CDB300BB675C /* JSON Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSON Models.swift"; sourceTree = "<group>"; };
 		63837F7D2743CEBD00BB675C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		638BA5F026401D60006A9E72 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
+		639B061C27DF247100B95999 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		639B061E27DF24C700B95999 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		63AB57BC269183C50028E685 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		63B17EC6275397280087A1D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		63B9024126B54AC5003E317F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 				63EBC92525D2AD3700155F8B /* TabBarViewController.swift */,
 				060782B5250CE27700A87020 /* FeedViewController.swift */,
 				060782C7250CEE5D00A87020 /* PostViewController.swift */,
+				639B061C27DF247100B95999 /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				63E8B42927A2B3DE004B55CD /* CustomViews */,
 				63E8B42A27A2B417004B55CD /* User Service */,
 				63E8B42B27A2B44E004B55CD /* NetWorking and PostData storage */,
+				639B061E27DF24C700B95999 /* MapView.swift */,
 			);
 			path = "Views and Model";
 			sourceTree = "<group>";
@@ -389,6 +395,7 @@
 				636C83542695A80300DEC1AC /* CustomTextField.swift in Sources */,
 				634D8F2A25C548A500C696AA /* LogInViewController.swift in Sources */,
 				63837F7C2743CDB400BB675C /* JSON Models.swift in Sources */,
+				639B061D27DF247100B95999 /* MapViewController.swift in Sources */,
 				060782C6250CEB0A00A87020 /* InfoViewController.swift in Sources */,
 				631112F5278AEE8800D842AE /* CoreDataStack.swift in Sources */,
 				636C83522695A7EB00DEC1AC /* Model.swift in Sources */,
@@ -404,6 +411,7 @@
 				634D77A725AC6733006A1E4F /* ProfileViewController.swift in Sources */,
 				63B9024226B54AC5003E317F /* ProfileViewModel.swift in Sources */,
 				63837F7E2743CEBD00BB675C /* NetworkService.swift in Sources */,
+				639B061F27DF24C700B95999 /* MapView.swift in Sources */,
 				060782C8250CEE5D00A87020 /* PostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +541,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 79RZ866842;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -552,6 +561,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 79RZ866842;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

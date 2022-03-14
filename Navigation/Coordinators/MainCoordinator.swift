@@ -20,8 +20,9 @@ class MainCoordinator: Coordinator {
         let feed = configureFeed()
         let logIn = configureProfile()
         let faves = configureFaves()
+        let map = configureMap()
         coordinators.append(logIn)
-        tabBarController.viewControllers = [feed, logIn.navigation, faves]
+        tabBarController.viewControllers = [map, feed, logIn.navigation, faves]
         logIn.start()
     }
     
@@ -51,5 +52,15 @@ class MainCoordinator: Coordinator {
             image: UIImage.init(systemName: "heart.fill"), tag: 0)
         return navigationFirst
     }
+    
+    private func configureMap() -> UINavigationController {
+        let mapController = MapViewController()
+        let navigationFirst = UINavigationController(rootViewController: mapController)
+        navigationFirst.tabBarItem = UITabBarItem(
+            title: "Map",
+            image: UIImage.init(systemName: "location"), tag: 0)
+        return navigationFirst
+    }
+
 
 }
