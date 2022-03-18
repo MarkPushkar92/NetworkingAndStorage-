@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Марк Пушкарь on 18.03.2022.
+  Copyright © 2022 Artem Novichkov. All rights reserved.
+*/
+
+"RemoveRoutesMenuItem" = "Remove Routes";
+"RemoveMapPinsMenuItem" = "Remove Map Pins";
+"CreateRouteMenuItem" = "Create Route";
+"CreateRouteAlertTitle" = "Create Route Alert";
+"CreateRouteAlertMessage" = "Not able to route to more than 1 pin or current location is nil";
+"MapMenuName" = "Map Menu";
+"AlertButtonTitle" = "Got it";
+
+"MapBarButton" = "Map";
+"FeedBarButton" = "Feed";
+"LogInBarButton" = "LogIn";
+"FavesBarButton" = "Faves";
+

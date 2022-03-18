@@ -30,7 +30,7 @@ class MainCoordinator: Coordinator {
         let feedController = FeedViewController(model: model)
         let navigationFirst = UINavigationController(rootViewController: feedController)
         navigationFirst.tabBarItem = UITabBarItem(
-            title: "Feed",
+            title: Strings.FeedBarButton.localized,
             image: UIImage.init(systemName: "house.fill"), tag: 0)
         return navigationFirst
     }
@@ -38,7 +38,7 @@ class MainCoordinator: Coordinator {
     private func configureProfile() -> LogInCoordinator {
         let navigationSecond = UINavigationController()
         navigationSecond.tabBarItem = UITabBarItem(
-            title: "Log In",
+            title: Strings.LogInBarButton.localized,
             image: UIImage.init(systemName: "person.fill"), tag: 1)
         let coordinator = LogInCoordinator(navigation: navigationSecond, factory: factory)
         return coordinator
@@ -48,7 +48,7 @@ class MainCoordinator: Coordinator {
         let favesController = PostViewController(stack: CoreDataStack())
         let navigationFirst = UINavigationController(rootViewController: favesController)
         navigationFirst.tabBarItem = UITabBarItem(
-            title: "Favorite",
+            title: Strings.FavesBarButton.localized,
             image: UIImage.init(systemName: "heart.fill"), tag: 0)
         return navigationFirst
     }
@@ -57,7 +57,7 @@ class MainCoordinator: Coordinator {
         let mapController = MapViewController()
         let navigationFirst = UINavigationController(rootViewController: mapController)
         navigationFirst.tabBarItem = UITabBarItem(
-            title: "Map",
+            title: Strings.MapBarButton.localized,
             image: UIImage.init(systemName: "location"), tag: 0)
         return navigationFirst
     }

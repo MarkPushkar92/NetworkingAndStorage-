@@ -63,14 +63,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     private func showAlert(title : String, message : String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: Strings.AlertButtonTitle.localized, style: .default, handler: { (_) in
             
              }))
         self.present(alert, animated: true, completion: nil)
     }
     
     private func setupMenu() {
-        let removeMapPinsItem = UIAction(title: "Remove Map Pins", image: UIImage(systemName: "minus.circle")) { [unowned self] (action) in
+        
+        let removeMapPinsItem = UIAction(title: Strings.RemoveMapPinsMenuItem.localized, image: UIImage(systemName: "minus.circle")) { [unowned self] (action) in
             if let ui = self.view as? MapView {
                 let annotations = ui.mapView.annotations.filter({ !($0 is MKUserLocation) })
                 ui.mapView.removeAnnotations(annotations)
@@ -78,7 +79,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
 
-        let deleteRouteItem = UIAction(title: "Remove Routes") { [unowned self] (action) in
+        let removeRouteItem = UIAction(title: Strings.RemoveRoutesMenuItem.localized) { [unowned self] (action) in
             if let ui = self.view as? MapView {
                 let currentOverlays = ui.mapView.overlays(in: .aboveRoads)
                 ui.mapView.removeOverlays(currentOverlays)
@@ -92,23 +93,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
 
-        let createRouteItem = UIAction(title: "Create Route") { [unowned self ] (action) in
+        let createRouteItem = UIAction(title: Strings.CreateRouteMenuItem.localized) { [unowned self ] (action) in
             if let ui = self.view as? MapView {
                 let annotations = ui.mapView.annotations.filter({ !($0 is MKUserLocation) })
                 
                 if annotations.count != 1 || currentLocation == nil {
-                    self.showAlert(title: "Create Route Alert", message: "Not able to route to more than 1 pin or current location is nil")
+                    self.showAlert(title: Strings.AlertButtonTitle.localized, message: Strings.CreateRouteAlertMessage.localized)
                 } else {
                     makeRoute()
                 }
             }
         }
 
-        let menu = UIMenu(title: "Map Menu",
+        let menu = UIMenu(title: Strings.MapMenuName.localized,
                           options: .displayInline,
                           children: [removeMapPinsItem,
                                      createRouteItem,
-                                     deleteRouteItem])
+                                     removeRouteItem])
 
         let navItems = [
             UIBarButtonItem(systemItem: .edit , menu: menu)
