@@ -13,7 +13,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private var profileNameLabel: UILabel! = {
         let profileNameLabel = UILabel()
         profileNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        profileNameLabel.textColor = .black
+        profileNameLabel.textColor = .label
         profileNameLabel.text = "Dr.Gonzo"
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return profileNameLabel
@@ -43,7 +43,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private var statusLabel: UILabel! = {
         let statusLabel = UILabel()
         statusLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        statusLabel.textColor = .gray
+        statusLabel.textColor = .label
         statusLabel.text = "Some status"
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         return statusLabel

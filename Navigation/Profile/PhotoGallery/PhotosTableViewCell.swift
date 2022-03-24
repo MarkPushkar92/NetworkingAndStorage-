@@ -23,7 +23,7 @@ class PhotosTableViewCell: UITableViewCell {
     let photoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .label
         label.font = .systemFont(ofSize: 24, weight: .bold)
         return label
     }()

@@ -43,7 +43,7 @@ class LogInViewController: UIViewController {
         email.layer.borderWidth = 0.5
         email.layer.cornerRadius = 10
         email.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        email.textColor = .black
+        email.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         email.font = .systemFont(ofSize: 16)
         return email
     }()
@@ -58,7 +58,7 @@ class LogInViewController: UIViewController {
         password.layer.cornerRadius = 10
         password.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         password.isSecureTextEntry = false
-        password.textColor = .black
+        password.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         password.font = .systemFont(ofSize: 16)
         return password
     }()
@@ -123,7 +123,7 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.translatesAutoresizingMaskIntoConstraints = false

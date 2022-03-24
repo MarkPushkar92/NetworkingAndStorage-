@@ -27,7 +27,7 @@ class PostTableViewCell: UITableViewCell {
     private let authorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.textColor = .black
+        label.textColor = .label
         label.numberOfLines = 2
         label.toAutoLayout()
         return label
