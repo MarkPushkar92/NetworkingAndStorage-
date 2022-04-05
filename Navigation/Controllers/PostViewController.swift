@@ -51,6 +51,7 @@ class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         setupViews()
         title = "Faves"
         reloadPosts()

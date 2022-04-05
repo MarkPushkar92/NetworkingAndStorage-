@@ -45,7 +45,7 @@ class PostTableViewCell: UITableViewCell {
     private let likesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .label
         label.toAutoLayout()
         return label
     }()
@@ -53,7 +53,7 @@ class PostTableViewCell: UITableViewCell {
     private let viewsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .label
         label.numberOfLines = 2
         label.toAutoLayout()
         return label
